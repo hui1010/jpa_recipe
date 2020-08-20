@@ -14,9 +14,9 @@ public class RecipeIngredient {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Ingredient> ingredient;
+    private Ingredient ingredient;
 
     private double amount;
 
@@ -24,12 +24,14 @@ public class RecipeIngredient {
 
     @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(referencedColumnName = "jpa_assignment_recipe.recipe.id")
     private Recipe recipe;
+
 
     public RecipeIngredient() {
     }
 
-    public RecipeIngredient(List<Ingredient> ingredient, double amount, Measurement measurement, Recipe recipe) {
+    public RecipeIngredient(Ingredient ingredient, double amount, Measurement measurement, Recipe recipe) {
         this.ingredient = ingredient;
         this.amount = amount;
         this.measurement = measurement;
@@ -40,11 +42,11 @@ public class RecipeIngredient {
         return id;
     }
 
-    public List<Ingredient> getIngredient() {
+    public Ingredient getIngredient() {
         return ingredient;
     }
 
-    public void setIngredient(List<Ingredient> ingredient) {
+    public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
     }
 
