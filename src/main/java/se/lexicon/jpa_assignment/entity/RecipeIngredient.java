@@ -14,9 +14,9 @@ public class RecipeIngredient {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Ingredient> ingredient;
+    private Ingredient ingredient;
 
     private double amount;
 
@@ -29,7 +29,7 @@ public class RecipeIngredient {
     public RecipeIngredient() {
     }
 
-    public RecipeIngredient(List<Ingredient> ingredient, double amount, Measurement measurement, Recipe recipe) {
+    public RecipeIngredient(Ingredient ingredient, double amount, Measurement measurement, Recipe recipe) {
         this.ingredient = ingredient;
         this.amount = amount;
         this.measurement = measurement;
@@ -40,11 +40,11 @@ public class RecipeIngredient {
         return id;
     }
 
-    public List<Ingredient> getIngredient() {
+    public Ingredient getIngredient() {
         return ingredient;
     }
 
-    public void setIngredient(List<Ingredient> ingredient) {
+    public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
     }
 
@@ -89,14 +89,14 @@ public class RecipeIngredient {
         return Objects.hash(id, ingredient, amount, measurement, recipe);
     }
 
-    @Override
-    public String toString() {
-        return "RecipeIngredient{" +
-                "id='" + id + '\'' +
-                ", ingredient=" + ingredient +
-                ", amount=" + amount +
-                ", measurement=" + measurement +
-                ", recipe=" + recipe +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "RecipeIngredient{" +
+//                "id='" + id + '\'' +
+//                ", ingredient=" + ingredient +
+//                ", amount=" + amount +
+//                ", measurement=" + measurement +
+//                ", recipe=" + recipe +
+//                '}';
+//    }
 }

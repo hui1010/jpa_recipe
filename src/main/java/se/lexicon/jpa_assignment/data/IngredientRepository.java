@@ -6,8 +6,11 @@ import se.lexicon.jpa_assignment.entity.Ingredient;
 import java.util.List;
 
 public interface IngredientRepository extends CrudRepository<Ingredient, Integer> {
-    Ingredient findByIngredient(String name);
+    List<Ingredient> findAll();
 
-    List<Ingredient> findAllByIngredientContainingIgnoreCase(String ingredient);
+    //search for a specific ingredient name by specified String
+    Ingredient findByNameIgnoreCase(String name);
 
+    //search for ingredient that name particularly corresponded with search String
+    List<Ingredient> findAllByNameContainingIgnoreCase(String string);
 }

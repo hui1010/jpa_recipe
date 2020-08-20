@@ -1,6 +1,7 @@
 package se.lexicon.jpa_assignment.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,18 +11,20 @@ public class RecipeCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String categoryName;
+    private String name;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    // todo @JoinTable or mappedBy
+    @JoinTable(name = "recipe_recipe_categories",
+            joinColumns = @JoinColumn(name = "recipe_categories_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipe_id"))
     private List<Recipe> recipes;
 
     public RecipeCategory() {
     }
 
     public RecipeCategory(String category, List<Recipe> recipes) {
-        this.categoryName = category;
+        this.name = category;
         this.recipes = recipes;
     }
 
@@ -29,12 +32,12 @@ public class RecipeCategory {
         return id;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getName() {
+        return name;
     }
 
-    public void setCategoryName(String category) {
-        this.categoryName = category;
+    public void setName(String category) {
+        this.name = category;
     }
 
     public List<Recipe> getRecipes() {
@@ -51,21 +54,55 @@ public class RecipeCategory {
         if (o == null || getClass() != o.getClass()) return false;
         RecipeCategory that = (RecipeCategory) o;
         return id == that.id &&
-                Objects.equals(categoryName, that.categoryName) &&
+                Objects.equals(name, that.name) &&
                 Objects.equals(recipes, that.recipes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, categoryName, recipes);
+        return Objects.hash(id, name, recipes);
     }
 
     @Override
     public String toString() {
         return "RecipeCategory{" +
                 "id=" + id +
-                ", category='" + categoryName + '\'' +
+                ", category='" + name + '\'' +
                 ", recipes=" + recipes +
                 '}';
     }
+
+    /**
+     * convenience methods - add and remove recipe
+     * */
+    public boolean addRecipe(Recipe recipe){
+        boolean added = false;
+        if (recipes == null)
+            recipes = new ArrayList<>();
+
+        if (recipe == null)
+            throw new IllegalArgumentException("please make sure the recipe is not empty");
+
+        if (!recipes.contains(recipe)){
+            added = recipes.add(recipe);
+            recipe.getRecipeCategories().add(this);
+        }
+        return added;
+    }
+
+    public boolean removeRecipe(Recipe recipe){
+        boolean removed = false;
+        if (recipes == null)
+            recipes = new ArrayList<>();
+
+        if (recipe == null)
+            throw new IllegalArgumentException("please make sure the recipe is not empty");
+
+        if (recipes.contains(recipe)){
+            removed = recipes.add(recipe);
+            recipe.getRecipeCategories().remove(this);
+        }
+        return removed;
+    }
+
 }
