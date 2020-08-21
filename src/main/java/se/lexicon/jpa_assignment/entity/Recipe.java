@@ -1,9 +1,7 @@
 package se.lexicon.jpa_assignment.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Recipe {
@@ -15,7 +13,7 @@ public class Recipe {
 
     @OneToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
-            mappedBy = "recipe", orphanRemoval = true)
+            orphanRemoval = true)
     private List<RecipeIngredient> recipeIngredients;
 
     @OneToOne(fetch = FetchType.EAGER,
@@ -27,12 +25,12 @@ public class Recipe {
     @JoinTable(name = "recipe_recipe_categories",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_categories_id"))
-    private List<RecipeCategory> recipeCategories;
+    private Set<RecipeCategory> recipeCategories;
 
     public Recipe() {
     }
 
-    public Recipe(String name, List<RecipeIngredient> recipeIngredients, RecipeInstruction recipeInstruction, List<RecipeCategory> recipeCategories) {
+    public Recipe(String name, List<RecipeIngredient> recipeIngredients, RecipeInstruction recipeInstruction, Set<RecipeCategory> recipeCategories) {
         this.name = name;
         this.recipeIngredients = recipeIngredients;
         this.recipeInstruction = recipeInstruction;
@@ -67,11 +65,11 @@ public class Recipe {
         this.recipeInstruction = recipeInstruction;
     }
 
-    public List<RecipeCategory> getRecipeCategories() {
+    public Set<RecipeCategory> getRecipeCategories() {
         return recipeCategories;
     }
 
-    public void setRecipeCategories(List<RecipeCategory> recipeCategories) {
+    public void setRecipeCategories(Set<RecipeCategory> recipeCategories) {
         this.recipeCategories = recipeCategories;
     }
 
@@ -114,7 +112,7 @@ public class Recipe {
     public boolean addToRecipeCategory(RecipeCategory recipeCategory){
         boolean added = false;
         if (recipeCategories == null)
-            recipeCategories = new ArrayList<>();
+            recipeCategories = new HashSet<>();
         if (recipeCategory == null)
             throw new IllegalArgumentException("please make sure the category is not empty");
         if (!recipeCategories.contains(recipeCategory)){
@@ -127,7 +125,7 @@ public class Recipe {
     public boolean removeFromRecipeCategory(RecipeCategory recipeCategory){
         boolean removed = false;
         if (recipeCategories == null)
-            recipeCategories = new ArrayList<>();
+            recipeCategories = new HashSet<>();
         if (recipeCategory == null)
             throw new IllegalArgumentException("please make sure the category is not empty");
         if (recipeCategories.contains(recipeCategory)) {
@@ -154,14 +152,14 @@ public class Recipe {
         return Objects.hash(id, name, recipeIngredients, recipeInstruction, recipeCategories);
     }
 
-//    @Override
-//    public String toString() {
-//        return "Recipe{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", recipeIngredients=" + recipeIngredients +
-//                ", recipeInstruction=" + recipeInstruction +
-//                ", recipeCategories=" + recipeCategories +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", recipeIngredients=" + recipeIngredients +
+                ", recipeInstruction=" + recipeInstruction +
+                ", recipeCategories=" + recipeCategories +
+                '}';
+    }
 }

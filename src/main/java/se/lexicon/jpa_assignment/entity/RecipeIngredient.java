@@ -14,6 +14,7 @@ public class RecipeIngredient {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
+    @JoinColumn(name = "dsaf ")
     @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Ingredient ingredient;
@@ -71,6 +72,8 @@ public class RecipeIngredient {
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
