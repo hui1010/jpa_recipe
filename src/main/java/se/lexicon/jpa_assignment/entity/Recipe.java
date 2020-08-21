@@ -25,12 +25,12 @@ public class Recipe {
     @JoinTable(name = "recipe_recipe_categories",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_categories_id"))
-    private Set<RecipeCategory> recipeCategories;
+    private List<RecipeCategory> recipeCategories;
 
     public Recipe() {
     }
 
-    public Recipe(String name, List<RecipeIngredient> recipeIngredients, RecipeInstruction recipeInstruction, Set<RecipeCategory> recipeCategories) {
+    public Recipe(String name, List<RecipeIngredient> recipeIngredients, RecipeInstruction recipeInstruction, List<RecipeCategory> recipeCategories) {
         this.name = name;
         this.recipeIngredients = recipeIngredients;
         this.recipeInstruction = recipeInstruction;
@@ -65,11 +65,11 @@ public class Recipe {
         this.recipeInstruction = recipeInstruction;
     }
 
-    public Set<RecipeCategory> getRecipeCategories() {
+    public List<RecipeCategory> getRecipeCategories() {
         return recipeCategories;
     }
 
-    public void setRecipeCategories(Set<RecipeCategory> recipeCategories) {
+    public void setRecipeCategories(List<RecipeCategory> recipeCategories) {
         this.recipeCategories = recipeCategories;
     }
 
@@ -112,7 +112,7 @@ public class Recipe {
     public boolean addToRecipeCategory(RecipeCategory recipeCategory){
         boolean added = false;
         if (recipeCategories == null)
-            recipeCategories = new HashSet<>();
+            recipeCategories = new ArrayList<>();
         if (recipeCategory == null)
             throw new IllegalArgumentException("please make sure the category is not empty");
         if (!recipeCategories.contains(recipeCategory)){
@@ -125,7 +125,7 @@ public class Recipe {
     public boolean removeFromRecipeCategory(RecipeCategory recipeCategory){
         boolean removed = false;
         if (recipeCategories == null)
-            recipeCategories = new HashSet<>();
+            recipeCategories = new ArrayList<>();
         if (recipeCategory == null)
             throw new IllegalArgumentException("please make sure the category is not empty");
         if (recipeCategories.contains(recipeCategory)) {

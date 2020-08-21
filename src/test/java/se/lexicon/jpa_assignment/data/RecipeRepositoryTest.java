@@ -4,13 +4,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import se.lexicon.jpa_assignment.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -24,8 +25,8 @@ class RecipeRepositoryTest {
     List<RecipeIngredient> testOneIngredients;
     List<RecipeIngredient> testTwoIngredients;
 
-    List<RecipeCategory> testOneCategory;
-    List<RecipeCategory> testTwoCategory;
+//    Set<RecipeCategory> testOneCategory;
+//    Set<RecipeCategory> testTwoCategory;
 
     RecipeIngredient recipeIngredient1;
     RecipeIngredient recipeIngredient2;
@@ -184,7 +185,7 @@ class RecipeRepositoryTest {
         String name2 = "chickeN";
 
         //Act
-        List<Recipe> found2 = recipeRepository.findAllByRecipeCategories_NameIgnoreCase(name1);
+        List<Recipe> found2 = recipeRepository.findAllByRecipeCategories_NameIgnoreCase(name2);
         //Assert
 
         System.out.println(found2.size());

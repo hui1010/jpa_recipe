@@ -14,7 +14,6 @@ public class RecipeIngredient {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
-    @JoinColumn(name = "dsaf ")
     @ManyToOne(fetch = FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private Ingredient ingredient;
@@ -92,14 +91,14 @@ public class RecipeIngredient {
         return Objects.hash(id, ingredient, amount, measurement, recipe);
     }
 
-//    @Override
-//    public String toString() {
-//        return "RecipeIngredient{" +
-//                "id='" + id + '\'' +
-//                ", ingredient=" + ingredient +
-//                ", amount=" + amount +
-//                ", measurement=" + measurement +
-//                ", recipe=" + recipe +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "RecipeIngredient{" +
+                "id='" + id + '\'' +
+                ", ingredient=" + ingredient +
+                ", amount=" + amount +
+                ", measurement=" + measurement +
+                ", recipe=" + recipe +
+                '}';
+    }
 }

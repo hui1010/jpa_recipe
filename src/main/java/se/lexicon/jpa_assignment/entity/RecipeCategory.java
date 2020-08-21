@@ -11,6 +11,7 @@ public class RecipeCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "name")
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY,
