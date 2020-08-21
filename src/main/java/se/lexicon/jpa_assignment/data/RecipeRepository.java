@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import se.lexicon.jpa_assignment.entity.Recipe;
-
+import java.util.Set;
 import java.util.List;
 
 public interface RecipeRepository extends CrudRepository<Recipe, Integer> {
@@ -16,5 +16,6 @@ public interface RecipeRepository extends CrudRepository<Recipe, Integer> {
 //    @Query("SELECT r FROM Recipe r JOIN RecipeCategory rc WHERE r. = :name ")
 //    List<Recipe> findAllByRecipeCategories_NameContainingIgnoreCase(@Param("name") String name, String ... names);
 
+    //List<Recipe> findAllByRecipeIngredientsContainingIgnoreCase();
 
 }
