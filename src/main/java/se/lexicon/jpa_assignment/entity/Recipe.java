@@ -11,7 +11,7 @@ public class Recipe {
 
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "recipe",
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
             orphanRemoval = true)
     private List<RecipeIngredient> recipeIngredients;

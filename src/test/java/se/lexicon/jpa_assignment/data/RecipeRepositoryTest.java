@@ -11,7 +11,6 @@ import se.lexicon.jpa_assignment.entity.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class RecipeRepositoryTest {
@@ -24,8 +23,8 @@ class RecipeRepositoryTest {
     List<RecipeIngredient> testOneIngredients;
     List<RecipeIngredient> testTwoIngredients;
 
-//    Set<RecipeCategory> testOneCategory;
-//    Set<RecipeCategory> testTwoCategory;
+    List<RecipeCategory> testOneCategory;
+    List<RecipeCategory> testTwoCategory;
 
     RecipeIngredient recipeIngredient1;
     RecipeIngredient recipeIngredient2;
@@ -49,7 +48,6 @@ class RecipeRepositoryTest {
         ingredient3 = new Ingredient("mushroom");
 
 
-
         testOneIngredients = new ArrayList<>();
         testTwoIngredients = new ArrayList<>();
 
@@ -60,7 +58,7 @@ class RecipeRepositoryTest {
         recipeIngredient1.setIngredient(ingredient1);//tomato
         recipeIngredient2.setIngredient(ingredient2);//egg
         recipeIngredient3.setIngredient(ingredient3);//mushroom
-//
+
 //        testOneIngredients.add(recipeIngredient1);
 //        testOneIngredients.add(recipeIngredient2);
 //
@@ -72,6 +70,9 @@ class RecipeRepositoryTest {
 
         testTwo.addRecipeIngredient(recipeIngredient3);
         testTwo.addRecipeIngredient(recipeIngredient2);//testTwo contains egg and mushroom
+
+//        testOne.setRecipeIngredients(testOneIngredients);
+//        testTwo.setRecipeIngredients(testTwoIngredients);
 
         category1 = new RecipeCategory("spicy", null);
         category2 = new RecipeCategory("hot", null);
@@ -95,15 +96,9 @@ class RecipeRepositoryTest {
 //        testTwoCategory.add(category1);
 
 
-//        testOne.addRecipeIngredient(recipeIngredient1);
-//        testOne.addRecipeIngredient(recipeIngredient2);
-//
-//        testTwo.addRecipeIngredient(recipeIngredient2);
-//        testTwo.addRecipeIngredient(recipeIngredient3);
-
         testOne.addToRecipeCategory(category1);
         testOne.addToRecipeCategory(category2);
-        //testOne.addToRecipeCategory(category3);
+        testOne.addToRecipeCategory(category3);
 
         testTwo.addToRecipeCategory(category1);
 
