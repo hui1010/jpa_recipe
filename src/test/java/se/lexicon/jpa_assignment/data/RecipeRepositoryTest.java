@@ -175,24 +175,38 @@ class RecipeRepositoryTest {
     @Test
     void findAllByRecipeCategories_NameIgnoreCase() {
         //Arrange
-//        String name1 = "spicy";
-//        String name2 = "chickeN";
-//
-//        //Act
-//        List<Recipe> found2 = recipeRepository.findAllByRecipeCategories_NameIgnoreCase(name2);
-//        //Assert
-//
-//        System.out.println(found2.size());
-//        assertTrue(found2.contains(testOne));
-//        assertFalse(found2.contains(testTwo));
+        String name1 = "spicy";
+        String name2 = "chickeN";
+
+        //Act
+        List<Recipe> found2 = recipeRepository.findAllByRecipeCategories_NameIgnoreCase(name2);
+        //Assert
+
+        System.out.println(found2.size());//3
+        assertTrue(found2.contains(testOne));//true
+        assertFalse(found2.contains(testTwo));//false
     }
 
     @Test
     void findAllByRecipeCategories_NameContainingIgnoreCase() {
         //Arrange
+        String name1 = "spicy";
+        String name2 = "chicken";
+        String name3 = "vegan";
 
         //Act
+        List<Recipe> found1 = recipeRepository.findAllByRecipeCategories_NameContainingIgnoreCase(name1);
+        List<Recipe> found2 = recipeRepository.findAllByRecipeCategories_NameContainingIgnoreCase(name1, name2);
+        List<Recipe> found3 = recipeRepository.findAllByRecipeCategories_NameContainingIgnoreCase(name1, name2, name3);
 
         //Assert
+        assertFalse(found1.isEmpty());
+        assertFalse(found2.isEmpty());
+        assertTrue(found3.isEmpty());
+        assertEquals(2, found1.size());
+        assertEquals(1, found2.size());
+        assertTrue(found1.contains(testOne));
+        assertTrue(found1.contains(testTwo));
+
     }
 }
